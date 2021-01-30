@@ -22,7 +22,26 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func searchPressed(_ sender: UIButton) {
-        print(searchTextField.text ?? "New York, NY")
+        searchTextField.endEditing(true)
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.endEditing(true)
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            return true
+        } else {
+            textField.placeholder = "Please enter a city name"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        // use searchTextField.text to fetch the weather for that city
+        searchTextField.text = ""
     }
     
 }
